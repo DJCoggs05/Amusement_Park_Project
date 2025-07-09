@@ -286,6 +286,7 @@ This is a custom exception that happens when we cannot open the input stream. Th
 * [Google Places](https://developers.google.com/maps/documentation/places/web-service)
 
 ## $${\color{lightgreen}Authors by Alphabetical Order}$$
+
 * Chibiuike Anyiam
 * Dakota Coughlin
 * Nolan Meyer
