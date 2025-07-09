@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ride Tracking Map</title>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    />
+</head>
+<style>
+    #map {
+        width: 100%;
+        height: 100vh;
+    }
+</style>
+<body>
+<div id="map">
+</div>
+
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+
+<script>
+    // All the unused functions are being used in the MapManager class
+    const map = L.map('map').setView([0, 0], 1);
+    //
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    let currentMarker = null;
+    /**
+     * Sets the map view to the given coordinates and zoom level.
+     *
+     * @param {number} lat - The latitude of the location.
+     * @param {number} long - The longitude of the location.
+     * @param {number} zoomLevel - The zoom level of the map.
+     * @returns {void}
+     */
+    function setMapView(lat, long, zoomLevel) {
+        map.setView([lat, long], zoomLevel)
+    }
+
+    /**
+     * Converts minutes to a human-readable string format (e.g., "1 hr 30 min").
+     *
+     * @param {number} minutes - The number of minutes to convert.
+     * @returns {string} - The formatted time string.
+     */
+    function convertMinToHours(minutes) {
+        let output;
+        let hours;
+        let extraMinutes;
+
+        if (minutes < 0) {
+            output = "Invalid: minute cannot be negative";
+        } else if (minutes < 60) {
+            output = minutes + " min";
+        } else if (minutes % 60 === 0) {
+            hours = Math.floor(minutes / 60);
+            output = `${hours} hr`;
+        } else {
+            hours = Math.floor(minutes / 60);
+            extraMinutes = minutes % 60;
+            output = `${hours} hr ${extraMinutes} min`;
+        }
+
+        return output;
+    }
+
+    /**
+     * Adds a marker to the map with a custom icon and popup.
+     *
+     * @param {number} lat - The latitude of the marker.
+     * @param {number} long - The longitude of the marker.
+     * @param {string} id - The ID of the ride.
+     * @param {string} rideName - The name of the ride.
+     * @param {number} waitTime - The wait time for the ride in minutes.
+     * @param {boolean} isOpen - Indicates whether the ride is open.
+     * @param {string} imageUrl - The image of the ride.
+     * @returns {void}
+     */
+    function addMarker(lat, long, id, rideName, waitTime, isOpen, imageUrl) {
+        let icon;
+        let waitTimeColor = getWaitTimeColor(waitTime);
+        let waitTimeText = `Wait Time: ${convertMinToHours(waitTime)}`;
+
+        if (!isOpen) {
+            icon = 'https://i.ibb.co/hxs49HHB/gray-pointer.png';
+            waitTimeText = "CLOSED"
+            waitTimeColor = getWaitTimeColor(120);
+        } else if (waitTime < 45) {
+            icon = 'https://i.ibb.co/j9jk7dHL/green-pointer.png';
+        } else if (waitTime <= 95) {
+            icon = 'https://i.ibb.co/230X13DZ/yellow-pointer.png';
+        } else {
+            icon = 'https://i.ibb.co/DDXBrW9D/red-pointer.png';
+        }
+
+        const markerIcon = L.icon({
+            iconUrl: icon,
+            iconSize: [25, 30],
+        });
+
+        if (currentMarker) {
+            map.removeLayer(currentMarker);
+        }
+
+        const popupContent = `
+        <div style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 220px;
+        ">
+            <img
+                src="${imageUrl}"
+                alt="${rideName}"
+                style="
+                    width: 200px;
+                    height: auto;
+                    border-radius: 12px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                    margin-bottom: 10px;
+                "
+            >
+            <div
+                style="
+                    font-weight: bold;
+                    color: #333;
+                    font-size: 16px;
+                    margin-bottom: 5px;
+                "
+            >
+                ${rideName}
+            </div>
+            <div style="color: ${waitTimeColor}; font-size: 14px;">
+                <strong>${waitTimeText}</strong>
+            </div>
+        </div>
+    `;
+
+        currentMarker = L.marker([lat, long], { icon: markerIcon })
+            .addTo(map)
+            .bindPopup(popupContent)
+            .openPopup();
+    }
+
+    /**
+     * Adds a marker to the map with a custom icon and popup.
+     *
+     * @param {number} lat - The latitude of the marker.
+     * @param {number} long - The longitude of the marker.
+     * @param {string} rideName - The name of the restaurant.
+     * @param {string} imageUrl - The image of the restaurant.
+     * @returns {void}
+     */
+    function addRestaurantMarker(lat, long, rideName, imageUrl) {
+        const markerIcon = L.icon({
+            iconUrl: 'https://i.ibb.co/BVNRFvFJ/restaurant-maker.png',
+            iconSize: [30, 30],
+        });
+
+        if (currentMarker) {
+            map.removeLayer(currentMarker);
+        }
+
+        const popupContent = `
+        <div style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 220px;
+        ">
+            <img
+                src="${imageUrl}"
+                alt="${rideName}"
+                style="
+                    width: 200px;
+                    height: auto;
+                    border-radius: 12px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                    margin-bottom: 10px;
+                "
+            >
+            <div
+                style="
+                    font-weight: bold;
+                    color: #333;
+                    font-size: 16px;
+                    word-wrap: break-word;
+                "
+            >
+                ${rideName}
+            </div>
+        </div>
+    `;
+
+        currentMarker = L.marker([lat, long], { icon: markerIcon })
+            .addTo(map)
+            .bindPopup(popupContent)
+            .openPopup();
+    }
+
+     /**
+     * Gets a color for the ride
+     *
+     * @param {number} waitTime - the wait time of the ride.
+     * @returns {string} color - the color that the text for the wait time should be
+     */
+     function getWaitTimeColor(waitTime){
+        let output;
+        if(waitTime < 45){
+            output = "#28a745"
+        }else if(waitTime <= 90){
+            output = "#ffc107"
+        }else{
+            output = "#dc3545";
+        }
+        return output;
+     }
+
+
+</script>
+</body>
+</html>

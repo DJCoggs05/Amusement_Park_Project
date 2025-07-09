@@ -1,0 +1,46 @@
+{
+  "coord": {
+    "lon": -81.5812,
+    "lat": 28.4177
+  },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 80.2,
+    "feels_like": 79.75,
+    "temp_min": 77.92,
+    "temp_max": 81.05,
+    "pressure": 1015,
+    "humidity": 36,
+    "sea_level": 1015,
+    "grnd_level": 1011
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 3,
+    "deg": 209,
+    "gust": 8.99
+  },
+  "clouds": {
+    "all": 0
+  },
+  "dt": 1741812890,
+  "sys": {
+    "type": 2,
+    "id": 2033033,
+    "country": "US",
+    "sunrise": 1741779549,
+    "sunset": 1741822381
+  },
+  "timezone": -14400,
+  "id": 4146830,
+  "name": "Bay Hill",
+  "cod": 200
+}

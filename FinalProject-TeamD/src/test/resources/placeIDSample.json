@@ -1,0 +1,69 @@
+{
+  "html_attributions" : [],
+  "results" :
+  [
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 28.4188163,
+          "lng" : -81.5817689
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 28.431839,
+            "lng" : -81.56493385000002
+          },
+          "southwest" :
+          {
+            "lat" : 28.37974819999999,
+            "lng" : -81.58812205
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color" : "#7B9EB0",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name" : "Magic Kingdom Park",
+      "opening_hours" :
+      {
+        "open_now" : true
+      },
+      "photos" :
+      [
+        {
+          "height" : 3000,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/107373744777896594977\"\u003eA Google User\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUy1YQ0x-fIXFMqYCmwXGOtTrIjMwvYA1GPIL1cAhM0T56vGmN3y_akQkMaYQyF9s8fJ-VcTzO02I0qlBtXdytvUz26-zZgGlvxmJV-vx-rO6s3pOUahth9yXyb4YKMo8vjoxBazH1M4XQx9biCfonjc54FFYG9EJuyOuv61WOmtnf5kohA7gPR-FD_m6bFHZF6cM3o4ewPJdPO-2adjE4z86bvtALmZY2_WMlkUTOMTRldHUk2HvNTFOsMyFcO5aLyp09kH0tcjvEw4siOd1EDLiwBKZTkZAUm32naR36lq2e59MGtzhxU",
+          "width" : 4000
+        }
+      ],
+      "place_id" : "ChIJgUulalN-3YgRGoTaWM2LawY",
+      "plus_code" :
+      {
+        "compound_code" : "CC99+G7 Bay Lake, Florida",
+        "global_code" : "76WWCC99+G7"
+      },
+      "rating" : 4.6,
+      "reference" : "ChIJgUulalN-3YgRGoTaWM2LawY",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "tourist_attraction",
+        "amusement_park",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 233749,
+      "vicinity" : "Bay Lake"
+    }
+  ],
+  "status" : "OK"
+}
